@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        html {
+            --bodyText: #083170;
+            --linkBackground: #ffffff;
+            --linkText: #083170;
+            --linkHoverBackground: #ffffff;
+            --linkHoverText: #083170;
+            --profileBackground: #D1F6FF;
+            --heroBackground: #c8c6d1;
+            --defaultAvatarBackground: #061492;
+            --defaultAvatarText: #FFFFFF;
+            --profileTitleText: #083170;
+            --profileDescriptionText: #0A0B0D;
+            --socialLinkFill: #083170;
+            --bannerBackground: #000;
+            --bannerText: #FFF;
+            --linkRadius: 24px;
+            --profileFontFamilyPrimary: inter;
+            --profileFontFamilySecondary: inter;
+            --profileFontWeightNormal: 500;
+            --profileFontWeightBold: 700;
+            --profileDescriptionFontWeight: 500;
+            --linkTextFontWeight: 500;
+            --headerFontWeight: 700;
+            --embedLinkTextFontWeight: 500;
+            --signupSubmitTextFontWeight: 700;
+            --bannerFontWeight: 700;
+            --profileDescriptionFontSize: 14px;
+            --linkTextFontSize: 14px;
+            --headerFontSize: 20px;
+            --embedLinkTextFontSize: 14px;
+            --signupSubmitTextFontSize: 14px;
+            --linkHeaderFontSize: 14px;
+            --bannerFontSize: 14px;
+            --profileDescriptionLineHeight: 1.5;
+            --headerLineHeight: 1.5;
+        }
+
+        @media screen and (min-width: 768px) {
+            html {
+                --profileDescriptionFontSize: 16px;
+                --linkTextFontSize: 16px;
+                --headerFontSize: 20px;
+                --embedLinkTextFontSize: 16px;
+                --signupSubmitTextFontSize: 16px;
+                --linkHeaderFontSize: 16px;
+                --bannerFontSize: 16px;
+            }
+        }
+
+        @media screen and (min-width: 1024px) {
+            html {
+                --profileDescriptionFontSize: 18px;
+                --linkTextFontSize: 18px;
+                --headerFontSize: 22px;
+                --embedLinkTextFontSize: 18px;
+                --signupSubmitTextFontSize: 18px;
+                --linkHeaderFontSize: 18px;
+                --bannerFontSize: 18px;
+            }
+        }
+
+        body {
+            font-family: var(--profileFontFamilyPrimary);
+            background-color: var(--profileBackground);
+            color: var(--bodyText);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .profile-container {
+            text-align: center;
+            background-color: lavender;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .profile-picture img {
+            border-radius: 50%;
+            width: 96px;
+            height: 96px;
+            margin-top: 30px;
+        }
+
+        .profile-title {
+            font-size: var(--headerFontSize);
+            font-weight: var(--headerFontWeight);
+            color: var(--profileTitleText);
+            margin-top: 1rem;
+        }
+
+        .profile-description {
+            font-size: var(--profileDescriptionFontSize);
+            font-weight: var(--profileDescriptionFontWeight);
+            color: var(--profileDescriptionText);
+            margin-top: 0.5rem;
+        }
+
+        .links-container {
+            margin-top: 2rem;
+        }
+
+        .links-container h3 {
+            font-size: var(--linkHeaderFontSize);
+            font-weight: var(--linkTextFontWeight);
+            color: var(--bodyText);
+            margin-bottom: 1rem;
+        }
+
+        .link-card {
+            display: flex;
+            align-items: center;
+            background-color: var(--linkBackground);
+            color: var(--linkText);
+            padding: 0.5rem 1rem;
+            border-radius: var(--linkRadius);
+            margin-bottom: 1rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .link-card:hover {
+            transform: scale(1.05);
+        }
+
+        .link-card img {
+            width: 24px;
+            height: 24px;
+            margin-right: 10px;
+        }
+
+        .link-card span.ellipsis {
+            margin-left: auto;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        .keep {
+            font-size: var(--profileDescriptionFontSize);
+            font-weight: bold;
+            color: var(--profileDescriptionText);
+            padding: 5px;
+        }
+
+        /* Overlay section */
+        #overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            z-index: 10;
+        }
+
+        #overlay .overlay-content {
+            background: #fff;
+            color: #000;
+            padding: 2rem;
+            border-radius: 8px;
+            max-width: 600px;
+            width: 90%;
+            position: relative;
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+        }
+
+        h3 {
+            text-align: center;
+        }
+
+        #overlay a {
+            display: block;
+            margin: 0.5rem 0;
+            color: #083170;
+            text-decoration: none;
+        }
+
+        #overlay a.hidden {
+            display: none;
+        }
+
+        #overlay a:hover {
+            text-decoration: underline;
+        }
+
+        #overlay .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+            font-size: 24px;
+            color: #000;
+        }
+
+        .fa-brands {
+            margin-right: 5px;
+        }
+
+        .link {
+            text-decoration: none !important;
+            color: #083170;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="profile-container">
+        <div class="profile-picture">
+            <img src="https://res.cloudinary.com/drdjty87p/image/upload/v1722502535/WhatsApp_Image_2024-08-01_at_2.25.13_PM_sqampk.jpg" alt="Profile Picture" />
+        </div>
+        <div class="profile-title">
+            @Join_ my_ journey
+        </div>
+        <div class="profile-description">
+            Hii😎 I'm Yugandhar Naik
+        </div>
+
+        <div class="links-container">
+            <div class="keep">Keep up with me :</div>
+            <div class="link-card">
+                <a href="https://www.linkedin.com/in/anji-naik/" target="_blank" class="link" data-social="linkedin">
+                    <i class="fa-brands fa-linkedin icon" style="color:#1E90FF;"></i> <span>LinkedIn</span>
+                </a>
+                <span class="ellipsis" onclick="showOverlay('linkedin');">...</span>
+            </div>
+            <div class="link-card">
+                <a href="https://github.com/YugandharNaik22" target="_blank" class="link" data-social="github">
+                    <i class="fa-brands fa-github icon" style="color:black;"></i>
+                    <span class="span ">Github</span>
+                </a>
+                <span class="ellipsis" onclick="showOverlay('github');">...</span>
+            </div>
+            <div class="link-card">
+                <a href="https://www.instagram.com/it_call_me_lucky/" target="_blank" class="link" data-social="instagram">
+                    <i class="fa-brands fa-instagram icon" style="color:#ff6366;"></i><span>Instagram</span>
+                </a>
+                <span class="ellipsis" onclick="showOverlay('instagram');">...</span>
+            </div>
+            <div class="link-card">
+                <a href="https://x.com/Balu42284020" target="_blank" class="link" data-social="twitter">
+                    <i class="fa-brands fa-twitter icon" style="color:#00BFFF;"></i><span>Twitter</span>
+                </a>
+                <span class="ellipsis" onclick="showOverlay('twitter');">...</span>
+            </div>
+            <div class="link-card">
+                <a href="https://t.me/YugandharNaikSabhavath" target="_blank" class="link" data-social="telegram">
+                    <i class="fa-brands fa-telegram icon" style="color:#1E90FF;"></i><span>Telegram</span></a>
+                <span class="ellipsis" onclick="showOverlay('telegram');">...</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Overlay for social media sharing -->
+    <div id="overlay">
+        <div class="overlay-content">
+            <span class="close-btn" onclick="closeOverlay();">&times;</span>
+            <h3>Share This Profile</h3>
+            <a href="https://www.linkedin.com/?mini=true&url=https://www.linkedin.com/in/anji-naik/" target="_blank" id="linkedin-link">
+                <i class="fa-brands fa-linkedin icon"></i> Share on LinkedIn
+            </a>
+           <a href="https://wa.me/?text=Check%20out%20my%20profile%20here:%20https://www.linkedin.com/in/anji-naik/" target="_blank" id="whatsapp-link">
+                <i class="fa-brands fa-whatsapp icon"></i> Share on WhatsApp
+            </a>
+            <a href="https://www.twitter.com/?text=Check%20out%20my%20profile%20here:%20https://https://x.com/Balu42284020" target="_blank" id="twitter-link">
+                <i class="fa-brands fa-twitter icon"></i> Share on Twitter
+            </a>
+        </div>
+    </div>
+
+    <script>
+        function showOverlay(socialMedia) {
+            const overlay = document.getElementById('overlay');
+            overlay.style.display = 'flex';
+
+            // Show all social media links in the overlay
+            const links = overlay.querySelectorAll('.overlay-content a');
+            links.forEach(link => link.classList.remove('hidden'));
+
+            // Hide specific social media link in the overlay
+            if (socialMedia) {
+                const hiddenLink = overlay.querySelector('#' + socialMedia + '-link');
+                if (hiddenLink) {
+                    hiddenLink.classList.add('hidden');
+                }
+            }
+        }
+
+        function closeOverlay() {
+            document.getElementById('overlay').style.display = 'none';
+        }
+    </script>
+</body>
+
+</html>
